@@ -1,4 +1,4 @@
-// This create a funcion with IIFE method in order make the variable contained local and not global
+// This creates a funcion with IIFE method in order make the variable contained local and not global
 let pokemonRepository = (function() {
   let pokemonList = [
   {name: 'Psyduck', height: 0.8, types: 'water'},
@@ -13,7 +13,7 @@ let pokemonRepository = (function() {
     pokemonList.push(pokemon);
   }
 
-// This fuction allows to return the content of the array
+// This fuction is used to return the content of the pokemonList array
   function getAll() {
     return pokemonList;
   }
@@ -26,13 +26,10 @@ let pokemonRepository = (function() {
 })();
 
 
-// This is a forEach() fucnction used to display the content of the pokemonList array on the browser, this won't work as the array has been wraped around the above IIFE function
-// function logToConsole(pokemon) {
-//   console.log(pokemon);
-// }
-// pokemonList.forEach(logToConsole);
-
-
 // This function is used to add an object to the pokemonList in the above pokemonRepository
 pokemonRepository.add({name: 'Machamp', height: 1.6, types: 'fighting'});
-console.log(pokemonRepository.getAll());
+
+// This function is using the function getAll.() and the forEach to display the content of the pokemonList array on the browser
+pokemonRepository.getAll().forEach(function(pokemon) {
+  document.write('Pokemon Name: ' + pokemon.name + '. Height: ' + pokemon.height + 'm. Type: ' + pokemon.types + '<br>');
+})
