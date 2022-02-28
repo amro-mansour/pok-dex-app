@@ -18,10 +18,31 @@ let pokemonRepository = (function() {
     return pokemonList;
   }
 
-// This will return the two functions defined above, so then they can be called outside of the function
+// This function is used to add a list of buttons to associate with the pokemons defined in the pokemonList array
+  function addListItem(pokemon) {
+    let pokemonList = document.querySelector('.pokemon-list');
+    let listItem = document.createElement('li');
+    let button = document.createElement('button');
+    button.innerText = pokemon.name;
+    button.classList.add('button-custom');
+    listItem.appendChild(button);
+    pokemonList.appendChild(listItem);
+    // Here is added an event listener to the button created, it's activted once the button is clicked. Also the event handler will log the pokemon that's been clicked
+    button.addEventListener('click', function (event) {
+      showDetails(pokemon);
+    });
+  }
+
+  function showDetails(pokemon) {
+    console.log(pokemon);
+  }
+
+// This will return the functions defined above, so then they can be called outside of the IIFE function
   return {
     add: add,
-    getAll: getAll
+    getAll: getAll,
+    addListItem: addListItem,
+    showDetails: showDetails
   };
 })();
 
@@ -31,5 +52,6 @@ pokemonRepository.add({name: 'Machamp', height: 1.6, types: 'fighting'});
 
 // This function is using the function getAll.() and the forEach to display the content of the pokemonList array on the browser
 pokemonRepository.getAll().forEach(function(pokemon) {
-  document.write('Pokemon Name: ' + pokemon.name + '. Height: ' + pokemon.height + 'm. Type: ' + pokemon.types + '<br>');
+  pokemonRepository.addListItem(pokemon);
+
 })
