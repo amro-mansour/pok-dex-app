@@ -1,16 +1,18 @@
 // This creates a funcion with IIFE method in order make the variable contained local and not global
 let pokemonRepository = (function() {
-  let pokemonList = [
-  {name: 'Psyduck', height: 0.8, types: 'water'},
-  {name: 'Gastly', height: 1.3, types:
-  ['ghost','poison']},
-  {name: 'Charizard', height: 1.7, types:
-  ['fire','flying']},
-  {name: 'Mewtwo', height: 2, types: 'psychic'}
-  ];
+  let pokemonList = [];
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
+
 // This function allows to push other elements to the array
   function add(pokemon) {
-    pokemonList.push(pokemon);
+    if (
+      typeof pokemon === 'object' &&
+      'name' in pokemon
+    ) {
+      pokemonList.push(pokemon);
+    } else {
+      console.log('This is not a pokemon');
+    }
   }
 
 // This fuction is used to return the content of the pokemonList array
@@ -33,8 +35,42 @@ let pokemonRepository = (function() {
     });
   }
 
-  function showDetails(pokemon) {
-    console.log(pokemon);
+// This function uses fetch to GET the list of pokemon from the API in the apiUrl variable, then it uses the add() function to push those pokemons to the pokemonList Array
+  function loadList() {
+   return fetch(apiUrl).then(function (response) {
+     return response.json();
+   }).then(function (json) {
+     json.results.forEach(function (item) {
+       let pokemon = {
+         name: item.name,
+         detailsUrl: item.url
+       };
+       add(pokemon);
+     });
+   }).catch(function (e) {
+     console.error(e);
+   })
+ }
+
+// This function is needed to get the details of each pokemon
+ function loadDetails(item) {
+    let url = item.detailsUrl;
+    return fetch(url).then(function (response) {
+      return response.json();
+    }).then(function (details) {
+      // Now we add the details to the item
+      item.imageUrl = details.sprites.front_default;
+      item.height = details.height;
+      item.types = details.types;
+    }).catch(function (e) {
+      console.error(e);
+    });
+  }
+
+  function showDetails(item) {
+    pokemonRepository.loadDetails(item).then(function ()  {
+      console.log(item);
+    });
   }
 
 // This will return the functions defined above, so then they can be called outside of the IIFE function
@@ -42,16 +78,17 @@ let pokemonRepository = (function() {
     add: add,
     getAll: getAll,
     addListItem: addListItem,
-    showDetails: showDetails
+    showDetails: showDetails,
+    loadList: loadList,
+    loadDetails: loadDetails
   };
 })();
 
 
-// This function is used to add an object to the pokemonList in the above pokemonRepository
-pokemonRepository.add({name: 'Machamp', height: 1.6, types: 'fighting'});
-
 // This function is using the function getAll.() and the forEach to display the content of the pokemonList array on the browser
-pokemonRepository.getAll().forEach(function(pokemon) {
-  pokemonRepository.addListItem(pokemon);
+pokemonRepository.loadList().then(function () {
+  pokemonRepository.getAll().forEach(function(pokemon) {
+    pokemonRepository.addListItem(pokemon);
 
-})
+  });
+});
