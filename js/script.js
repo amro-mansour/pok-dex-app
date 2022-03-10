@@ -62,7 +62,10 @@ let pokemonRepository = (function() {
       // Now we add the details to the item
       item.imageUrl = details.sprites.front_default;
       item.height = details.height;
-      item.types = details.types;
+      item.types = [];
+      details.types.forEach(function(detail) {
+        item.types.push(detail.type.name);
+      });
     }).catch(function (e) {
       console.error(e);
     });
@@ -98,7 +101,7 @@ let pokemonRepository = (function() {
     heightElement.innerText = ('Height: ' + item.height);
 
     let typeElement = document.createElement('p');
-    typeElement.innerText = ('Types:' + item.types);
+    typeElement.innerText = ('Types: ' + item.types);
 
     modal.appendChild(closeButtonElement);
     modal.appendChild(titleElement);
