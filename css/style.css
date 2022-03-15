@@ -3,7 +3,7 @@ body {
   font-family: 'ubuntu', sans-serif;
 }
 
-.button-custom {
+/*.button-custom {
   background-color: #d1e0e0;
   color: black;
   height: 80px;
@@ -13,13 +13,13 @@ body {
   font-size: 16px;
   cursor: pointer;
   text-align: center;
-}
+}*/
 
-ul {
+/*ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-}
+}*/
 
 #modal-container {
   position: fixed;
