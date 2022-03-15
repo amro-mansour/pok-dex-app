@@ -25,9 +25,13 @@ let pokemonRepository = (function() {
   function addListItem(pokemon) {
     let pokemonList = document.querySelector('.pokemon-list');
     let listItem = document.createElement('li');
+    listItem.classList.add('group-list-item');
     let button = document.createElement('button');
     button.innerText = pokemon.name.toUpperCase();
-    button.classList.add('button-custom');
+    button.classList.add('btn');
+    button.classList.add('btn-primary');
+    button.classList.add('btn-lg');
+    button.classList.add('btn-block');
     listItem.appendChild(button);
     pokemonList.appendChild(listItem);
     // Here is added an event listener to the button created, it's activted once the button is clicked. Also the event handler will log the pokemon that's been clicked
