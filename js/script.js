@@ -28,12 +28,12 @@ let pokemonRepository = (function() {
     listItem.classList.add('group-list-item');
     let button = document.createElement('button');
     button.innerText = pokemon.name.toUpperCase();
-    button.classList.add('btn');
-    button.classList.add('btn-primary');
-    button.classList.add('btn-lg');
-    button.classList.add('btn-block');
+    button.classList.add('btn', 'btn-primary', 'btn-lg', 'btn-block');
     listItem.appendChild(button);
     pokemonList.appendChild(listItem);
+
+    button.setAttribute('data-toggle', 'modal');
+    button.setAttribute('data-target', '#exampleModal')
     // Here is added an event listener to the button created, it's activted once the button is clicked. Also the event handler will log the pokemon that's been clicked
     button.addEventListener('click', function (event) {
       showDetails(pokemon);
@@ -84,60 +84,32 @@ let pokemonRepository = (function() {
   
   // This function is added to create a modal that appears once a pokemon is clicked on the browser, the modal will show the pokemon characteristics(which are defined inside the function)
   function showModal(item) {
-    modalContainer.innerHTML = '';
-    let modal = document.createElement('div');
-    modal.classList.add('modal');
+    let modalBody = $('.modal-body');
+    let modalTitle = $('.modal-title');
+    let modalHeader = $('.modal-header');
 
-    // This is to create a close button that will be on the modal, once the button is clicked, we'll exit the modal
-    let closeButtonElement = document.createElement('button');
-    closeButtonElement.classList.add('modal-close');
-    closeButtonElement.innerText = 'Close';
-    closeButtonElement.addEventListener('click', hideModal);
+    modalTitle.empty();
+    modalBody.empty();
 
-    // Here we create the elements that will be inside the modal, these will contain the info about the pokemon, such as: name; an image; height; type.
-    let titleElement = document.createElement('h1');
-    titleElement.innerText = item.name.toUpperCase();
+    // This creates an element for the name of the pokemon in the modal
+    let nameElement = $('<h1>' + item.name + '</h1>');
 
-    let imageElement = document.createElement('img');
-    imageElement.setAttribute('src', item.imageUrl);
+    // This creates the element for the image to add in the modal
+    let imageElement = $('<img class="modal-img" style="width:50%">');
+    imageElement.attr('src', item.imageUrl);
 
-    let heightElement = document.createElement('p');
-    heightElement.innerText = ('Height: ' + item.height);
+    // This creates the element to the display the pokemons height in the modal
+    let heightElement = $('<p>' + 'Height: ' + item.height + '</p>');
 
-    let typeElement = document.createElement('p');
-    typeElement.innerText = ('Types: ' + item.types);
+    // This creates the element to display the type of pokemon in the modal 
+    let typesElement = $('<p>' + 'Types: ' + item.types + '</p>');
 
-    modal.appendChild(closeButtonElement);
-    modal.appendChild(titleElement);
-    modal.appendChild(imageElement);
-    modal.appendChild(heightElement);
-    modal.appendChild(typeElement);
-    modalContainer.appendChild(modal);
-
-    // This class is added in order for the modal to be visible once selected
-    modalContainer.classList.add('is-visible');
+    modalTitle.append(nameElement);
+    modalBody.append(imageElement);
+    modalBody.append(heightElement);
+    modalBody.append(typesElement);
+    
   } 
-  
-  // This function is need to exit the modal 
-  function hideModal() {
-    modalContainer.classList.remove('is-visible');
-  }
-
-  // This event listener is using the above hideModal function to exit the modal by clicking the Escape button on the keyboard
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modalContainer.classList.contains('is-visible')) {
-      hideModal();
-    }
-  });
-
-  // This event listener is using the hideModal function to exit the modal by clicking outside of it
-  modalContainer.addEventListener('click', (e) => {
-    let target = e.target;
-    if(target === modalContainer) {
-      hideModal();
-    }
-  })
-  
 
 
   // This will return the functions defined above, so then they can be called outside of the IIFE function
@@ -159,3 +131,4 @@ pokemonRepository.loadList().then(function () {
 
   });
 });
+
