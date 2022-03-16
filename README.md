@@ -1,2 +1,3 @@
-# simple-js-app
+# pok-dex-app
+
  
