@@ -8,19 +8,20 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="./css/style.css" rel="stylesheet" type="text/css">
   </head>
+
   <body>
-    <nav class="navbar navbar-light bg-light fixed-top">
+    <nav class="navbar navbar-light bg-light">
       <a class="navbar-brand" href="#">
         <img src="./img/logo.svg" width="60" height="60" class="d-inline-block align-top" alt="Pokédex Logo">
-        <h1 class="pokedex-header">Pokedex</h1>
+        <h1 class="pokedex-header">Pokedex App</h1>
       </a>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>    
     </nav>
 
     <ul class = 'pokemon-list list-group'></ul>
-
-    <div id="modal-container"></div>
-
-  
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
