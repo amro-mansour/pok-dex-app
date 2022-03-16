@@ -3,25 +3,15 @@ body {
   font-family: 'ubuntu', sans-serif;
 }
 
-/*.button-custom {
-  background-color: #d1e0e0;
-  color: black;
-  height: 80px;
-  width: 100%;
-  border: 2px #a3c2c2 solid;
-  margin-bottom: 3px;
-  font-size: 16px;
-  cursor: pointer;
-  text-align: center;
-}*/
-
-/*ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}*/
-
 .pokedex-header {
   float: right;
   margin-left: 10px;
 }
+
+.button-custom {
+  
+  margin-bottom: 2px;
+  height: 80px;
+}
+
+
