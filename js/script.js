@@ -1,7 +1,7 @@
 // This creates a funcion with IIFE method in order make the variable contained local and not global
 let pokemonRepository = (function() {
   let pokemonList = [];
-  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=300';
   let modalContainer = document.querySelector('#modal-container');
 
   // This function allows to push other elements to the array
@@ -28,7 +28,7 @@ let pokemonRepository = (function() {
     listItem.classList.add('group-list-item');
     let button = document.createElement('button');
     button.innerText = pokemon.name.toUpperCase();
-    button.classList.add('btn', 'btn-warning', 'btn-lg', 'btn-block', 'button-custom');
+    button.classList.add('btn', 'btn-warning', 'btn-lg', 'btn-block', 'button-custom', 'search-button');
     listItem.appendChild(button);
     pokemonList.appendChild(listItem);
 
@@ -37,6 +37,16 @@ let pokemonRepository = (function() {
     // Here is added an event listener to the button created, it's activted once the button is clicked. Also the event handler will log the pokemon that's been clicked
     button.addEventListener('click', function (event) {
       showDetails(pokemon);
+    });
+
+    // This function will run once the DOM is ready for JavaScript code to execute. It contains an event listener that fires once a key is pressed, to then search for the pokemon 
+    $(document).ready(function(){
+    $('#search-pokemon').on('keyup', function() {
+    let value = $(this).val().toLowerCase();
+    $(".search-button").filter(function() {   // This filters each pokemon by the 'search-button' class
+    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+    });
     });
   }
 
