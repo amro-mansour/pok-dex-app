@@ -2,7 +2,6 @@
 let pokemonRepository = (function() {
   let pokemonList = [];
   let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=300';
-  let modalContainer = document.querySelector('#modal-container');
 
   // This function allows to push other elements to the array
   function add(pokemon) {
@@ -35,15 +34,15 @@ let pokemonRepository = (function() {
     button.setAttribute('data-toggle', 'modal');
     button.setAttribute('data-target', '#exampleModal')
     // Here is added an event listener to the button created, it's activted once the button is clicked. Also the event handler will log the pokemon that's been clicked
-    button.addEventListener('click', function (event) {
+    button.addEventListener('click', function () {
       showDetails(pokemon);
     });
 
-    // This function will run once the DOM is ready for JavaScript code to execute. It contains an event listener that fires once a key is pressed, to then search for the pokemon 
+    // This function will run once the DOM is ready for JavaScript code to execute. It contains an event listener that fires once a key is pressed, to then search for the pokemon
     $(document).ready(function(){
     $('#search-pokemon').on('keyup', function() {
     let value = $(this).val().toLowerCase();
-    $(".search-button").filter(function() {   // This filters each pokemon by the 'search-button' class
+    $('.search-button').filter(function() {   // This filters each pokemon by the 'search-button' class
     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
     });
@@ -91,12 +90,11 @@ let pokemonRepository = (function() {
     });
   }
 
-  
+
   // This function is added to create a modal that appears once a pokemon is clicked on the browser, the modal will show the pokemon characteristics(which are defined inside the function)
   function showModal(item) {
     let modalBody = $('.modal-body');
     let modalTitle = $('.modal-title');
-    let modalHeader = $('.modal-header');
 
     modalTitle.empty();
     modalBody.empty();
@@ -111,15 +109,15 @@ let pokemonRepository = (function() {
     // This creates the element to the display the pokemons height in the modal
     let heightElement = $('<p>' + 'Height: ' + item.height + '</p>');
 
-    // This creates the element to display the type of pokemon in the modal 
+    // This creates the element to display the type of pokemon in the modal
     let typesElement = $('<p>' + 'Types: ' + item.types + '</p>');
 
     modalTitle.append(nameElement);
     modalBody.append(imageElement);
     modalBody.append(heightElement);
     modalBody.append(typesElement);
-    
-  } 
+
+  }
 
 
   // This will return the functions defined above, so then they can be called outside of the IIFE function
@@ -141,4 +139,3 @@ pokemonRepository.loadList().then(function () {
 
   });
 });
-
