@@ -1,7 +1,7 @@
 // This creates a funcion with IIFE method in order make the variable contained local and not global
 let pokemonRepository = (function() {
   let pokemonList = [];
-  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=300';
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
   // This function allows to push other elements to the array
   function add(pokemon) {
